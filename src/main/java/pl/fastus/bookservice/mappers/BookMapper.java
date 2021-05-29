@@ -5,11 +5,15 @@ package pl.fastus.bookservice.mappers;
  */
 
 import org.mapstruct.Mapper;
-import pl.fastus.bookservice.dao.BookResponse;
+import org.mapstruct.Mapping;
 import pl.fastus.bookservice.domain.Book;
+import pl.fastus.bookservice.domain.dto.BookDto;
 
 @Mapper(componentModel = "spring")
 public interface BookMapper {
 
-    BookResponse toBookResponse(Book book);
+    @Mapping(source = "author", target = "author")
+    BookDto toBookDto(Book book);
+
+    Book toBook(BookDto bookDto);
 }

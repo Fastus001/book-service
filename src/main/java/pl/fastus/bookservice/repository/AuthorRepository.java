@@ -9,4 +9,6 @@ import pl.fastus.bookservice.domain.Author;
  */
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Long> {
+
+    Author findAuthorByNameAndSureName(String name, String sureName);
 }

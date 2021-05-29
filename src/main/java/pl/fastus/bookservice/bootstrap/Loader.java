@@ -33,6 +33,6 @@ public class Loader implements CommandLineRunner {
         author.addBook(book);
 
         authorRepository.save(author);
-        bookService.save(book);
+        bookService.saveBook(book);
     }
 }

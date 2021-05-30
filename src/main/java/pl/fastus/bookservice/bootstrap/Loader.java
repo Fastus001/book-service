@@ -2,6 +2,7 @@ package pl.fastus.bookservice.bootstrap;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.fastus.bookservice.domain.Author;
 import pl.fastus.bookservice.domain.Book;
@@ -13,6 +14,7 @@ import pl.fastus.bookservice.services.BookService;
  */
 @RequiredArgsConstructor
 @Component
+@Profile("!prod")
 public class Loader implements CommandLineRunner {
 
     private final BookService bookService;

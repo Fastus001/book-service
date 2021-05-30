@@ -1,8 +1,6 @@
 package pl.fastus.bookservice.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,7 +9,10 @@ import javax.persistence.*;
  */
 @EqualsAndHashCode(exclude = "author")
 @ToString(exclude = "author")
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 @Entity
 public class Book {
 

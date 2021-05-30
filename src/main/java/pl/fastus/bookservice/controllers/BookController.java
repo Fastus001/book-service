@@ -12,6 +12,8 @@ import pl.fastus.bookservice.repository.AuthorRepository;
 import pl.fastus.bookservice.services.BookService;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -26,11 +28,31 @@ public class BookController {
     private final AuthorRepository authorRepository;
     private final BookMapper mapper;
 
-    @GetMapping("/{isbn}")
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<BookDto> getBooks(){
+        return bookService.getAllBooks()
+                .stream()
+                .map(mapper::toBookDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/isbn/{isbn}")
     @ResponseStatus(HttpStatus.OK)
     public BookDto bookByISBN(@PathVariable String isbn){
         System.out.println("isbn = " + isbn);
         return mapper.toBookDto(bookService.getByIsbn(isbn));
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto bookById(@PathVariable Long id){
+        final Book book = bookService.getById(id);
+        final List<Long> idsByAuthor = bookService.findByAuthor(book.getAuthor());
+        final BookDto bookDto = mapper.toBookDto(book);
+        bookDto.getAuthor().setBookIds(idsByAuthor);
+
+        return bookDto;
     }
 
     @PostMapping()
@@ -54,7 +76,6 @@ public class BookController {
             authorRepository.save(author);
             bookService.saveBook(book);
         }
-
     }
 
 }

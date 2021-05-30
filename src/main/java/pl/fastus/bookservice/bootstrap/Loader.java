@@ -30,9 +30,16 @@ public class Loader implements CommandLineRunner {
         book.setTitle("Title");
         book.setNumberOfPages(250);
 
+        Book book1 = new Book();
+        book1.setIsbn("123-456-789");
+        book1.setTitle("Title2");
+        book1.setNumberOfPages(650);
+
         author.addBook(book);
+        author.addBook(book1);
 
         authorRepository.save(author);
         bookService.saveBook(book);
+        bookService.saveBook(book1);
     }
 }
